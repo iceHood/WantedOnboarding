@@ -1,9 +1,3 @@
-//
-//  SceneDelegate.swift
-//  WantedPremission
-//
-//  Created by 임정현 on 2023/03/01.
-//
 
 import UIKit
 
