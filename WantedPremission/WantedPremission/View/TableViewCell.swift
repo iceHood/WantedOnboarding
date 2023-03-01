@@ -1,0 +1,38 @@
+//
+//  TableViewCell.swift
+//  WantedPremission
+//
+//  Created by 임정현 on 2023/03/01.
+//
+
+import UIKit
+
+class TableViewCell: UITableViewCell {
+
+    @IBOutlet weak var thumbnail: UIImageView!
+    
+    @IBOutlet weak var loadButton: UIButton!
+    
+    var requestToggle: Bool = false
+    var loadAction: (() -> Void)?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        loadButton.layer.cornerRadius = loadButton.frame.height / 5
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+    
+    @IBAction func loadTapped(_ sender: UIButton) {
+        thumbnail.image = UIImage(systemName: Constants.sfSymbol) ?? UIImage()
+        loadAction?()
+    }
+    
+
+}
+
