@@ -20,21 +20,33 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2Kh-sj-zaA">
                                 <rect key="frame" x="10" y="59" width="373" height="759"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="PSV-Pl-RIF">
-                                    <rect key="frame" x="0.0" y="0.0" width="373" height="30"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="JkP-rr-uDl">
+                                    <rect key="frame" x="0.0" y="0.0" width="373" height="70"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zcj-LV-CJV">
+                                            <rect key="frame" x="0.0" y="10" width="373" height="30"/>
+                                            <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="OY8-22-fvV"/>
+                                            </constraints>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Load All Images">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="loadAllTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jA0-uG-P0I"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="YdA-Zv-O9H"/>
+                                        <constraint firstAttribute="height" constant="40" id="Dvk-fj-fyw"/>
+                                        <constraint firstAttribute="trailing" secondItem="Zcj-LV-CJV" secondAttribute="trailing" id="VUo-6z-DPt"/>
+                                        <constraint firstItem="Zcj-LV-CJV" firstAttribute="leading" secondItem="JkP-rr-uDl" secondAttribute="leading" id="agI-3b-dt6"/>
+                                        <constraint firstAttribute="bottom" secondItem="Zcj-LV-CJV" secondAttribute="bottom" id="xbI-dV-4mG"/>
                                     </constraints>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Load All Images">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="loadAllTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jfp-OC-E3q"/>
-                                    </connections>
-                                </button>
+                                </view>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -47,7 +59,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="loadAllButton" destination="PSV-Pl-RIF" id="RxF-ZG-Nsx"/>
+                        <outlet property="loadAllButton" destination="Zcj-LV-CJV" id="LPU-t0-SG2"/>
                         <outlet property="loadingTable" destination="2Kh-sj-zaA" id="k2e-mZ-cqJ"/>
                     </connections>
                 </viewController>
