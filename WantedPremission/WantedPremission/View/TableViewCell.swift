@@ -23,6 +23,7 @@ class TableViewCell: UITableViewCell {
     }
     
     @IBAction func loadTapped(_ sender: UIButton) {
+        // Loading Images before loaded
         thumbnail.image = UIImage(systemName: Constants.sfSymbol) ?? UIImage()
         loadAction?()
     }

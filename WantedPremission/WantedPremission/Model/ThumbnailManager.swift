@@ -5,11 +5,11 @@ protocol ThumbnailManagerDelegate {
     func didFailWithError(error: Error)
 }
 
-struct ThumbnailManager {
+class ThumbnailManager {
     
     static let main: ThumbnailManager = ThumbnailManager()
     
-    var thumbnails: [Thumbnail] = []
+    var thumbnails: [Thumbnail] = [Thumbnail]()
     
     var thumbnailCounts: Int {
         thumbnails.count
@@ -23,7 +23,7 @@ struct ThumbnailManager {
         URLSession(configuration: .default).dataTask(with: url) { data, response, error in
             
             if let e = error {
-                delegate?.didFailWithError(error: e)
+                self.delegate?.didFailWithError(error: e)
                 return
             }
             
@@ -34,13 +34,19 @@ struct ThumbnailManager {
                 }
                 DispatchQueue.main.async {
                     // 여러 스레드에서 접근하려고 하면 터짐
-                    delegate?.didUpdateThumbnailImage(self, rowAt: idx, thumbnailImage: thumbnail)
+                    self.delegate?.didUpdateThumbnailImage(self, rowAt: idx, thumbnailImage: thumbnail)
                 }
             }
         }.resume()
     }
     
-    mutating func setTestCases() {
+    
+}
+
+
+// MARK: - Testcases Extension
+extension ThumbnailManager {
+    func setTestCases() {
         thumbnails = [
             Thumbnail(url: "https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg"),
             Thumbnail(url: "https://cdn.pixabay.com/photo/2016/02/13/12/26/aurora-1197753_1280.jpg"),
@@ -50,4 +56,3 @@ struct ThumbnailManager {
         ]
     }
 }
-
