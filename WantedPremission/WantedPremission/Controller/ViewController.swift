@@ -2,7 +2,6 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    
     @IBOutlet weak var loadingTable: UITableView!
     
     @IBOutlet weak var loadAllButton: UIButton!
@@ -11,14 +10,22 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        thumbnailManager.setTestCases()
         
+        setup()
+    }
+    
+    func setup() {
+        
+        // Set loadAllButton UI
         loadAllButton.layer.cornerRadius = loadAllButton.frame.height / 5
         
+        // Set loadingTable
         loadingTable.dataSource = self
-        thumbnailManager.delegate = self
         loadingTable.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         
+        // Set thumbnailManager
+        thumbnailManager.setTestCases()
+        thumbnailManager.delegate = self
     }
 
     @IBAction func loadAllTapped(_ sender: UIButton) {
@@ -38,12 +45,15 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as? TableViewCell else { return UITableViewCell() }
+        
         cell.thumbnail.image = thumbnailManager.thumbnails[indexPath.row].image
         // 함수 자체를 넘긴다는 아이디어에 대해 더 생각해 보아야 할듯.
         cell.loadAction = { [weak self] in
             self?.thumbnailManager.requestThumbnailImage(rowAt: indexPath.row)
         }
+        
         return cell
     }
 }
@@ -51,6 +61,7 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: ThumbnailManagerDelegate {
     func didUpdateThumbnailImage(_ thumbnailManager: ThumbnailManager, rowAt: Int, thumbnailImage: UIImage) {
+        
         thumbnailManager.thumbnails[rowAt].image = thumbnailImage
         loadingTable.reloadData()
     }
@@ -58,6 +69,4 @@ extension ViewController: ThumbnailManagerDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
-    
-    
 }
