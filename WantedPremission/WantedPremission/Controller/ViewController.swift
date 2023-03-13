@@ -6,7 +6,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var loadAllButton: UIButton!
     
-    var thumbnailManager = ThumbnailManager.main
+    var thumbnailManager = ThumbnailManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +62,10 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: ThumbnailManagerDelegate {
     func didUpdateThumbnailImage(_ thumbnailManager: ThumbnailManager, rowAt: Int, thumbnailImage: UIImage) {
         
-        thumbnailManager.thumbnails[rowAt].image = thumbnailImage
-        loadingTable.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.thumbnailManager.thumbnails[rowAt].image = thumbnailImage
+            self?.loadingTable.reloadData()
+        }
     }
     
     func didFailWithError(error: Error) {

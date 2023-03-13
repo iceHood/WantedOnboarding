@@ -5,9 +5,7 @@ protocol ThumbnailManagerDelegate {
     func didFailWithError(error: Error)
 }
 
-class ThumbnailManager {
-    
-    static let main: ThumbnailManager = ThumbnailManager()
+struct ThumbnailManager {
     
     var thumbnails: [Thumbnail] = [Thumbnail]()
     
@@ -32,7 +30,7 @@ class ThumbnailManager {
                     print("Error has been occured generating tumbnail")
                     return
                 }
-                DispatchQueue.main.async {
+                DispatchQueue(label: Constants.thumbnailQueueIdentifier).async {
                     // 여러 스레드에서 접근하려고 하면 터짐
                     self.delegate?.didUpdateThumbnailImage(self, rowAt: idx, thumbnailImage: thumbnail)
                 }
@@ -46,7 +44,7 @@ class ThumbnailManager {
 
 // MARK: - Testcases Extension
 extension ThumbnailManager {
-    func setTestCases() {
+    mutating func setTestCases() {
         thumbnails = [
             Thumbnail(url: "https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg"),
             Thumbnail(url: "https://cdn.pixabay.com/photo/2016/02/13/12/26/aurora-1197753_1280.jpg"),
